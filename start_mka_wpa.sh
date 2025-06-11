@@ -1,8 +1,9 @@
 #!/bin/bash
+set -x
 
 # Netzwerkschnittstelle – bei Bedarf anpassen
 IFACE="eth0"
-MACSEC_IF="macsec_${IFACE}"
+MACSEC_IF="macsec0"
 
 # IP-Adresse dieses Hosts (je nach Pi unterschiedlich setzen!)
 LOCAL_IP="192.168.10.1/24"
@@ -40,5 +41,7 @@ echo "[+] Setze IP-Adresse $LOCAL_IP auf $MACSEC_IF"
 sudo ip addr flush dev "$MACSEC_IF"
 sudo ip addr add "$LOCAL_IP" dev "$MACSEC_IF"
 sudo ip link set dev "$MACSEC_IF" up
+
+set +x
 
 echo "[+] Fertig. Du kannst nun z. B. ping verwenden, um den anderen Pi zu erreichen."
